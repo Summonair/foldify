@@ -6,22 +6,16 @@ on:
       - "v*"
 
 jobs:
-  publish:
+  build:
     runs-on: ubuntu-latest
     permissions:
       contents: read
-      id-token: write
     steps:
       - uses: actions/checkout@v4
 
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-          registry-url: https://registry.npmjs.org
-
-      # Trusted Publishing (OIDC) needs npm 11.5.1+; setup-node's bundled
-      # npm on the node-20 image predates that, so update explicitly.
-      - run: npm install -g npm@latest
 
       - run: npm ci
       - run: npm run typecheck
@@ -36,6 +30,32 @@ jobs:
             exit 1
           fi
 
+      - uses: actions/upload-artifact@v4
+        with:
+          name: package
+          path: |
+            dist
+            package.json
+            README.md
+            LICENSE
+
+  publish:
+    needs: build
+    runs-on: ubuntu-latest
+    environment: npm-publish
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: package
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          registry-url: https://registry.npmjs.org
+
       # No NPM_TOKEN: authenticates via OIDC once Trusted Publishing is
-      # configured for this package on npmjs.com (see README/setup notes).
+      # configured for this package on npmjs.com.
       - run: npm publish --provenance --access public
