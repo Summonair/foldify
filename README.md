@@ -2,7 +2,7 @@
 
 **Seamless React components and hooks for foldable devices and dual-screens.**
 
-As hardware evolves, web applications need to adapt to new form factors like the Samsung Galaxy Z Fold, Google Pixel Fold, and Microsoft Surface Duo. `foldify` bridges the gap between React's declarative nature and the emerging W3C Viewport Segments and Device Posture APIs. 
+As hardware evolves, web applications need to adapt to new form factors like the Samsung Galaxy Z Fold, Google Pixel Fold, Microsoft Surface Duo, and now Apple's iPhone Duo. `foldify` bridges the gap between React's declarative nature and the emerging W3C Viewport Segments and Device Posture APIs. 
 
 Stop worrying about hinges swallowing your content, and start building beautiful, book-like experiences.
 
