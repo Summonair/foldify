@@ -6,6 +6,8 @@ As hardware evolves, web applications need to adapt to new form factors like the
 
 Stop worrying about hinges swallowing your content, and start building beautiful, book-like experiences.
 
+https://github.com/user-attachments/assets/777d6d8c-c790-47aa-99a5-d74e3f2d14e1
+
 ## 📦 Installation
 
 npm install @summonair/foldify
