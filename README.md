@@ -12,6 +12,64 @@ https://github.com/user-attachments/assets/777d6d8c-c790-47aa-99a5-d74e3f2d14e1
 
 npm install @summonair/foldify
 
+## 🚀 Usage
+
+### Quick start with `<FoldGrid>`
+
+```tsx
+import { FoldGrid } from '@summonair/foldify';
+
+function App() {
+  return (
+    <FoldGrid fallbackDirection="column">
+      <Sidebar />
+      <MainContent />
+    </FoldGrid>
+  );
+}
+```
+
+On a foldable device, `<Sidebar>` lands on the first screen and `<MainContent>`
+on the second, with the gap between them sized to the real hinge. On a normal
+single-screen device, they just stack in a column (or `row`, your call).
+
+### Keeping content out of the hinge
+
+```tsx
+import { HingeSafeArea } from '@summonair/foldify';
+
+function Toolbar() {
+  return (
+    <HingeSafeArea>
+      <button onClick={save}>Save</button>
+    </HingeSafeArea>
+  );
+}
+```
+
+### Building custom layouts with the hooks
+
+```tsx
+import { useViewportSegments, useDevicePosture, useIsFoldable } from '@summonair/foldify';
+
+function Reader() {
+  const segments = useViewportSegments();
+  const posture = useDevicePosture();
+  const isFoldable = useIsFoldable();
+
+  if (!isFoldable) {
+    return <SinglePaneReader />;
+  }
+
+  return posture === 'folded'
+    ? <TableTopReader segments={segments} />
+    : <TwoPageReader segments={segments} />;
+}
+```
+
+Every hook and component here works exactly the same on a browser that
+doesn't support the underlying APIs — see Browser Support below.
+
 ## 🛠️ The Hooks API
 
 ### `useViewportSegments()`
