@@ -56,6 +56,10 @@ jobs:
           node-version: 22
           registry-url: https://registry.npmjs.org
 
+      # Trusted Publishing (OIDC) needs npm 11.5.1+; the node-22 image's
+      # bundled npm predates that, so update explicitly.
+      - run: npm install -g npm@latest
+
       # No NPM_TOKEN: authenticates via OIDC once Trusted Publishing is
       # configured for this package on npmjs.com.
       - run: npm publish --provenance --access public
